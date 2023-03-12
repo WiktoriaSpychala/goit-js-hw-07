@@ -3,20 +3,12 @@ import { galleryItems } from './gallery-items.js';
 
 const gallery = document.querySelector('.gallery');
 
-galleryItems.forEach((item) => {
-    const galleryLink = document.createElement('a');
-    galleryLink.setAttribute('href', item.original);
-    galleryLink.classList.add('gallery__item');
+const galleryItem = galleryItems.map((item) => `
+<a class = "gallery__link" href = ${item.original}>
+<img class = "gallery__image" src = ${item.preview}
+data-source = ${item.original} alt = ${item.description}/></a></div>`).join("");
 
-    const galleryImage = document.createElement('img');
-    galleryImage.src = item.preview;
-    galleryImage.setAttribute('alt', item.description);
-    galleryImage.setAttribute('data-source', item.original);
-    galleryImage.classList.add('gallery__image');
-
-    gallery.append(galleryLink);
-    galleryLink.append(galleryImage);
-});
+gallery.insertAdjacentHTML("beforeend", galleryItem);
 
 const lightbox = new SimpleLightbox('.gallery .gallery__item', {
   captions: true,
